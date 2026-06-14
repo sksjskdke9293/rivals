@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RIVALS 2P — Three.js Real Match</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <canvas id="game"></canvas>
+
+  <div id="menu" class="screen on">
+    <div class="panel mainPanel">
+      <section class="hero">
+        <div class="pill"><span></span> REAL 2P MATCHING / THREE.JS</div>
+        <h1>RIVALS<br><b>DUEL</b></h1>
+        <p class="sub">진짜 2명 접속하면 서버가 대기열에서 바로 방을 만들고, 스나이퍼/M4 돌격소총으로 5라운드까지 싸우는 1대1 FPS 프로토타입.</p>
+        <div class="row inputRow">
+          <input id="nick" maxlength="18" placeholder="닉네임" value="Player" />
+          <select id="skin">
+            <option value="cyan">CYAN</option>
+            <option value="pink">PINK</option>
+            <option value="gold">GOLD</option>
+            <option value="violet">VIOLET</option>
+          </select>
+          <select id="mapSelect">
+            <option value="neon">네온 아레나</option>
+            <option value="crossroad">교차로</option>
+          </select>
+        </div>
+        <div class="actions">
+          <button id="matchBtn">매칭 시작</button>
+          <button id="shopBtn" class="secondary">상점 / 무기 선택</button>
+          <button id="practiceBtn" class="secondary">혼자 조작 테스트</button>
+        </div>
+        <div class="creditMini">M4 Carbine model by Umang Rank on Sketchfab · in-game credit included</div>
+      </section>
+      <aside class="side">
+        <div class="card live">
+          <h3>SERVER</h3>
+          <div class="metrics">
+            <div><b id="onlineCount">1</b><span>ONLINE</span></div>
+            <div><b id="queueCount">0</b><span>QUEUE</span></div>
+            <div><b id="roomCount">0</b><span>ROOMS</span></div>
+            <div><b id="myCoins">800</b><span>CREDITS</span></div>
+          </div>
+        </div>
+        <div class="card selected">
+          <h3>현재 장비</h3>
+          <div class="weaponBadge" id="selectedWeaponBadge">SNIPER VX</div>
+          <p id="selectedWeaponInfo">한 방 데미지, 스코프 줌, 느린 재장전</p>
+        </div>
+        <div class="card controls">
+          <h3>조작</h3>
+          <p>WASD 이동 · 마우스 조준 · 좌클릭 사격 · 우클릭 스나이퍼 스코프 / M4 레이저 도트 · R 재장전 · Shift 달리기</p>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <div id="shop" class="screen">
+    <div class="panel shopPanel">
+      <header class="shopHead">
+        <div>
+          <h2>상점 / 로드아웃</h2>
+          <p>스나이퍼는 한 방, M4는 연사. 크레딧은 브라우저에 저장됩니다.</p>
+        </div>
+        <button id="closeShop" class="secondary">닫기</button>
+      </header>
+      <div id="weaponGrid" class="weaponGrid"></div>
+    </div>
+  </div>
+
+  <div id="queue" class="queue">
+    <div class="queueBox">
+      <div class="spinner"></div>
+      <h2 id="queueTitle">매칭 대기중</h2>
+      <p id="queueText">다른 플레이어가 들어오면 자동으로 시작됩니다.</p>
+      <div class="miniVs"><span id="queueMe">YOU</span><b>VS</b><span id="queueEnemy">WAITING</span></div>
+      <button id="cancelQueue" class="danger">취소</button>
+    </div>
+  </div>
+
+  <div id="hud">
+    <div class="scoreBoard">
+      <div class="hpPanel left"><strong id="myName">YOU</strong><span id="myHpText">150</span><div class="hp"><i id="myHp"></i></div></div>
+      <div class="roundBox"><b id="scoreText">0 : 0</b><span id="roundText">ROUND 1</span></div>
+      <div class="hpPanel right"><strong id="enemyName">ENEMY</strong><span id="enemyHpText">150</span><div class="hp enemy"><i id="enemyHp"></i></div></div>
+    </div>
+    <div id="crosshair"><i></i></div>
+    <div id="scope"></div>
+    <div id="laserDot"><i></i></div>
+    <div id="damageVignette"></div>
+    <div id="hitMark">✕</div>
+    <div class="bottomHud">
+      <div><b id="hudWeapon">SNIPER VX</b><span id="ammoText">5 / 5</span></div>
+      <div class="help">ESC 메뉴 · R 재장전 · 우클릭 조준 / 레이저 도트</div>
+    </div>
+    <div id="feed"></div>
+    <div id="centerMsg"></div>
+  </div>
+
+  <div id="blocker" class="blocker hidden">
+    <div>
+      <h2>클릭해서 조준 잠금</h2>
+      <p>게임 중 마우스 조준을 사용하려면 화면을 클릭하세요.</p>
+    </div>
+  </div>
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+  <script type="module" src="./client.js"></script>
+</body>
+</html>
