@@ -1,0 +1,18 @@
+1) GitHub에 올리기
+cd /d "C:\Users\OSJ\Downloads\rivals_2p_threejs_real_match_update"
+git init
+git add .
+git commit -m "first deploy"
+git branch -M main
+git remote add origin https://github.com/본인아이디/rivals-2p-threejs.git
+git push -u origin main
+
+2) Render 배포 설정
+New + > Web Service
+GitHub repo: rivals-2p-threejs
+Root Directory: 비워두기
+Build Command: npm install
+Start Command: npm start
+Instance Type: Free 가능
+
+주의: Static Site가 아니라 Web Service로 만들어야 WebSocket 2인 매칭이 작동합니다.
